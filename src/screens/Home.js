@@ -139,10 +139,12 @@ const Home = () => {
           </div>
           <CreditsBalance balance={23} />
         </div>
-        <div className="absolute bottom-0 left-0 p-4 z-20">
-          <h2 className="text-3xl font-bold text-[#EB2726]">12</h2>
-          <p className="text-lg font-bold text-white">SESSIONS</p>
-          <p className="text-[#B0B0B0]">in last 30 days</p>
+        <div className="absolute bottom-0 left-0 z-20 p-4">
+          <div className="flex items-baseline">
+            <h2 className="text-[30px] font-bold italic text-[#EB2726]">12</h2>
+            <p className="text-lg font-bold text-white ml-2">SESSIONS</p>
+          </div>
+          <p className="text-[#B0B0B0] mt-1">in last 30 days</p>
         </div>
         <div className="absolute top-0 right-0 opacity-50 pointer-events-none z-0">
           <svg

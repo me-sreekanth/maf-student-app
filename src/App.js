@@ -24,6 +24,7 @@ import CreditsScreen from "./screens/CreditScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import EditProfileScreen from "./screens/EditProfile";
 import SavedAddressesScreen from "./screens/SavedAddress";
+import "./index.css";
 
 function App() {
   // const action = useNavigationType();
@@ -81,27 +82,29 @@ function App() {
   }, [pathname]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/basic-details1" element={<BasicDetails1 />} />
-      <Route path="/basic-details2" element={<BasicDetails2 />} />
-      <Route path="/otp-verification" element={<OtpVerification />} />
-      <Route path="/session-history" element={<SessionHistory />} />
-      <Route path="/session-details" element={<SessionDetails />} />
-      <Route path="/explore-trainers" element={<ExploreTrainers />} />
-      <Route path="/trainers" element={<Trainers />} />
-      <Route path="/trainer-details" element={<TrainerDetails />} />
-      <Route path="/select-address" element={<SelectAddress />} />
-      <Route path="/session-duration" element={<SessionDuration />} />
-      <Route path="/buy-credits" element={<BuyCredits />} />
-      <Route path="/set-location" element={<SetLocation />} />
-      <Route path="/add-address" element={<AddAddress />} />
-      <Route path="/credits" element={<CreditsScreen />} />
-      <Route path="/profile" element={<ProfileScreen />} />
-      <Route path="/edit-profile" element={<EditProfileScreen />} />
-      <Route path="/saved-addresses" element={<SavedAddressesScreen />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <div className="app-container">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/basic-details1" element={<BasicDetails1 />} />
+        <Route path="/basic-details2" element={<BasicDetails2 />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
+        <Route path="/session-history" element={<SessionHistory />} />
+        <Route path="/session-details" element={<SessionDetails />} />
+        <Route path="/explore-trainers" element={<ExploreTrainers />} />
+        <Route path="/trainers" element={<Trainers />} />
+        <Route path="/trainer-details" element={<TrainerDetails />} />
+        <Route path="/select-address" element={<SelectAddress />} />
+        <Route path="/session-duration" element={<SessionDuration />} />
+        <Route path="/buy-credits" element={<BuyCredits />} />
+        <Route path="/set-location" element={<SetLocation />} />
+        <Route path="/add-address" element={<AddAddress />} />
+        <Route path="/credits" element={<CreditsScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/edit-profile" element={<EditProfileScreen />} />
+        <Route path="/saved-addresses" element={<SavedAddressesScreen />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </div>
   );
 }
 
