@@ -1,8 +1,19 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../services/api";
 
 const BasicDetails1 = () => {
+  // Replace this with the actual API response
+  const userProfile = {
+    _id: "66bdb6ff3be330bad19a3f34",
+    mobileNumber: "9037511920",
+    countryCode: "91",
+    name: "test student",
+    age: 30,
+    sex: "Male",
+    experience: "Intermediate", // Added experience level
+  };
+
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [experience, setExperience] = useState("Beginner");
@@ -10,6 +21,14 @@ const BasicDetails1 = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // Populate the fields with data from userProfile
+  useEffect(() => {
+    setName(userProfile.name || "");
+    setAge(userProfile.age ? userProfile.age.toString() : "");
+    setExperience(userProfile.experience || "Beginner");
+    setSex(userProfile.sex || "Male");
+  }, []);
 
   const handleNext = useCallback(async () => {
     if (!name || !age || !sex) {
@@ -19,7 +38,7 @@ const BasicDetails1 = () => {
 
     setLoading(true);
     try {
-      const profileData = { name, age, sex };
+      const profileData = { name, age, sex, experience };
       await updateProfile(profileData);
       setLoading(false);
       navigate("/basic-details2");
@@ -27,7 +46,7 @@ const BasicDetails1 = () => {
       setError("Failed to update profile");
       setLoading(false);
     }
-  }, [name, age, sex, navigate]);
+  }, [name, age, sex, experience, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
@@ -89,11 +108,6 @@ const BasicDetails1 = () => {
                     : "border-gray-300 text-gray-500"
                 }`}
               >
-                <img
-                  src={`/${level.toLowerCase()}.svg`} // Add corresponding icons here
-                  alt={level}
-                  className="mx-auto mb-2"
-                />
                 <span className="block text-sm font-medium">{level}</span>
               </button>
             ))}

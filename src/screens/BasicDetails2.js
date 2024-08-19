@@ -1,14 +1,29 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../services/api";
 
 const BasicDetails2 = () => {
+  // Replace this with the actual API response
+  const userProfile = {
+    _id: "66bdb6ff3be330bad19a3f34",
+    hasGloves: true,
+    gloveSize: 14,
+    hasHandwrap: true,
+  };
+
   const [hasGloves, setHasGloves] = useState(null);
   const [gloveSize, setGloveSize] = useState(null);
   const [hasHandwrap, setHasHandwrap] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // Populate the fields with data from userProfile
+  useEffect(() => {
+    setHasGloves(userProfile.hasGloves);
+    setGloveSize(userProfile.gloveSize);
+    setHasHandwrap(userProfile.hasHandwrap);
+  }, []);
 
   const handleGetStarted = useCallback(async () => {
     if (hasGloves === null || gloveSize === null || hasHandwrap === null) {
