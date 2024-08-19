@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TimePicker from "./TimePicker"; // Make sure this path is correct
+import TimePicker from "./TimePicker"; // Ensure this path is correct
 import BackIcon from "../components/BackIcon";
+import { PrimaryButton } from "../components/Button";
+import SessionDurationCounter from "../components/SessionDurationCounter";
+import CreditsBalance from "../components/CreditBalance";
 
 const SessionDuration = () => {
   const navigate = useNavigate();
@@ -20,7 +23,6 @@ const SessionDuration = () => {
       setEndTime(newTime);
     }
     setShowTimePicker(false);
-    // Optionally, recalculate the session duration here
   };
 
   const handleBookNow = () => {
@@ -32,67 +34,61 @@ const SessionDuration = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-gray-100 p-4 relative">
       <header className="flex justify-between items-center mb-4">
         <BackIcon />
-        <div className="flex items-center">
-          <div className="flex items-center bg-gray-700 text-white px-3 py-1 rounded-md">
-            <span className="mr-2">100</span>
-            <button className="text-white text-lg">+</button>
-          </div>
-        </div>
+        <CreditsBalance balance={300} />
       </header>
 
       <section>
         <h1 className="text-2xl font-bold mb-4">Session Duration</h1>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Start Time
-          </label>
-          <input
-            type="text"
-            value={startTime}
-            onClick={() => {
-              setPickerType("start");
-              setShowTimePicker(true);
-            }}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            End Time
-          </label>
-          <input
-            type="text"
-            value={endTime}
-            onClick={() => {
-              setPickerType("end");
-              setShowTimePicker(true);
-            }}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-          />
-        </div>
 
+        {/* Start Time Row */}
         <div className="mb-4">
-          <div className="flex items-center">
-            <button
-              onClick={() => setSessionDuration(sessionDuration - 30)}
-              className="p-2 rounded bg-red-600 text-white"
-              disabled={sessionDuration <= 30}
-            >
-              -
-            </button>
-            <span className="mx-4">{sessionDuration} mins Session</span>
-            <button
-              onClick={() => setSessionDuration(sessionDuration + 30)}
-              className="p-2 rounded bg-red-600 text-white"
-            >
-              +
-            </button>
+          <div className="flex justify-between items-center">
+            <label className="block text-sm font-medium text-gray-700">
+              Start Time
+            </label>
+            <input
+              type="text"
+              value={startTime}
+              onClick={() => {
+                setPickerType("start");
+                setShowTimePicker(true);
+              }}
+              className="block text-center border border-gray-400 shadow-sm p-2"
+            />
           </div>
         </div>
 
+        {/* End Time Row */}
+        <div className="mb-4">
+          <div className="flex justify-between items-center">
+            <label className="block text-sm font-medium text-gray-700">
+              End Time
+            </label>
+            <input
+              type="text"
+              value={endTime}
+              onClick={() => {
+                setPickerType("end");
+                setShowTimePicker(true);
+              }}
+              className="block text-center border border-gray-400 shadow-sm p-2"
+            />
+          </div>
+        </div>
+
+        {/* Session Duration Counter */}
+        <div className="mb-4">
+          <SessionDurationCounter
+            sessionDuration={sessionDuration}
+            decrementDuration={() => setSessionDuration(sessionDuration - 30)}
+            incrementDuration={() => setSessionDuration(sessionDuration + 30)}
+          />
+        </div>
+
+        {/* Notes Section */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Notes to Trainer
@@ -101,10 +97,11 @@ const SessionDuration = () => {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Would like to train kicks and some cardio..."
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            className="mt-1 block w-full rounded-md border-gray-400 shadow-sm h-32"
           ></textarea>
         </div>
 
+        {/* Agreement Section */}
         <div className="mb-4">
           <label className="flex items-center">
             <input
@@ -123,38 +120,25 @@ const SessionDuration = () => {
           </label>
         </div>
 
-        <div className="flex justify-between items-center mt-6">
+        {/* Total Credits and Book Now Button */}
+        <div className="flex-col justify-between items-center mt-6">
           <span className="text-lg">
             Total Credits <span className="text-yellow-500">200</span>
           </span>
-          <button
-            onClick={handleBookNow}
-            className="bg-red-600 text-white py-2 px-4 rounded-md flex items-center"
-          >
-            BOOK NOW
-            <svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              ></path>
-            </svg>
-          </button>
+          <PrimaryButton label="BOOK NOW" onClick={handleBookNow} />
         </div>
       </section>
 
+      {/* Time Picker Modal */}
       {showTimePicker && (
-        <TimePicker
-          onConfirm={handleTimeChange}
-          onClose={() => setShowTimePicker(false)}
-        />
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end z-50">
+          <div className="bg-white w-full max-w-sm p-4 rounded-t-md">
+            <TimePicker
+              onConfirm={handleTimeChange}
+              onClose={() => setShowTimePicker(false)}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

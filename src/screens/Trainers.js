@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import TrainerListItem from "../components/TrainerListItem"; // Import the TrainerListItem component
 import BackIcon from "../components/BackIcon";
+import Title from "../components/Title";
 
 const Trainers = () => {
   const navigate = useNavigate();
@@ -75,11 +76,9 @@ const Trainers = () => {
         <BackIcon />
       </header>
 
-      <h3 className="font-bold text-gray-800 mb-4 text-black">
-        {/* Ensure the text is visible */}
-        // {view === "myTrainers" ? "MY TRAINERS" : "ALL TRAINERS"}
-      </h3>
-
+      <Title
+        text={view === "myTrainers" ? "// MY TRAINERS" : "// ALL TRAINERS"}
+      />
       {view === "allTrainers" && (
         <section className="mb-4">
           <input

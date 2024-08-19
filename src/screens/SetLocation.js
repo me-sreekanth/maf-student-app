@@ -32,12 +32,6 @@ const SetLocation = () => {
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-4">
         <BackIcon />
-        <div className="flex items-center">
-          <div className="flex items-center bg-gray-700 text-white px-3 py-1 rounded-md">
-            <span className="mr-2">100</span>
-            <button className="text-white text-lg">+</button>
-          </div>
-        </div>
       </header>
 
       <section className="mb-8">

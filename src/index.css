@@ -18,6 +18,7 @@ code {
 .app-container {
   width: 100%;
   max-width: 400px; /* Example width for mobile screens */
+  min-width: 400px;
   height: 100vh; /* Ensures the container height matches the viewport height */
   margin: 0 auto; /* Center the container */
   background-color: #fff;
