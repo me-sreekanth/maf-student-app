@@ -33,6 +33,7 @@ const Home = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"), // Ensure image path is correct
     },
     {
@@ -43,6 +44,7 @@ const Home = () => {
         { day: "Thursday", time: "10AM - 11AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"), // Ensure image path is correct
     },
   ];

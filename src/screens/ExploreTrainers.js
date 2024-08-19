@@ -20,6 +20,7 @@ const ExploreTrainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"),
     },
     {
@@ -34,6 +35,7 @@ const ExploreTrainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"),
     },
     {
@@ -48,6 +50,7 @@ const ExploreTrainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"),
     },
   ];
@@ -65,6 +68,7 @@ const ExploreTrainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"),
     },
     {
@@ -79,6 +83,7 @@ const ExploreTrainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"),
     },
     {
@@ -93,6 +98,7 @@ const ExploreTrainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      weeklySchedule: ["9AM - 10AM", "10AM - 11AM", "11AM - 12PM"],
       imageUrl: require("../assets/trainer.png"),
     },
   ];
@@ -168,6 +174,7 @@ const ExploreTrainers = () => {
             <div key={index} className="w-full sm:w-1/2 lg:w-1/3 px-2 mb-4">
               <TrainerListItem
                 trainer={trainer}
+                isWeekly={true}
                 onClick={() => navigate(`/trainer-details/${index}`)}
               />
             </div>
