@@ -54,6 +54,10 @@ const TrainerDetails = ({ location }) => {
     },
   ];
 
+  const handleBook = () => {
+    navigate("/select-address");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-4">
@@ -144,6 +148,7 @@ const TrainerDetails = ({ location }) => {
                       : "bg-gray-400 text-gray-200"
                   } px-4 py-2 rounded-md`}
                   disabled={!slot.available}
+                  onClick={() => handleBook(slot)}
                 >
                   Book
                 </button>
