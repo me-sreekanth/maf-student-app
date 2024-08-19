@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import BackIcon from "../components/BackIcon";
 import Title from "../components/Title";
 import TrainerListItem from "../components/TrainerListItem";
+import TrainerSelection from "../components/TrainerSelection";
 
 const ExploreTrainers = () => {
   const navigate = useNavigate();
@@ -120,22 +121,7 @@ const ExploreTrainers = () => {
         <BackIcon />
       </header>
 
-      <section className="mb-4">
-        <div className="flex justify-between">
-          <button
-            onClick={() => navigate("/trainers?view=myTrainers")}
-            className="flex-1 border-2 border-gray-300 p-4 rounded-md text-center"
-          >
-            ❤️ My Trainers
-          </button>
-          <button
-            onClick={() => navigate("/trainers?view=allTrainers")}
-            className="flex-1 border-2 border-gray-300 p-4 rounded-md text-center ml-4"
-          >
-            ⭐ All Trainers
-          </button>
-        </div>
-      </section>
+      <TrainerSelection />
 
       <section className="mb-4">
         <Title text={"// Top Trainers"} />
