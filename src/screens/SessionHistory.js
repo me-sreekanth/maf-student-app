@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SessionItem from "../components/SessionItem"; // Adjust the import path as necessary
+import BackIcon from "../components/BackIcon";
 
 const SessionHistory = () => {
   const navigate = useNavigate();
@@ -36,38 +38,27 @@ const SessionHistory = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex items-center mb-4">
-        <button onClick={() => navigate(-1)} className="text-gray-500">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </button>
+        <BackIcon />
         <h1 className="ml-4 text-2xl font-bold">Session History</h1>
       </header>
 
       <div className="bg-white p-4 rounded-lg shadow-md">
         <nav className="flex justify-between mb-4">
           <button
-            className={`font-bold ${
-              activeTab === "Upcoming" ? "border-b-2 border-black" : ""
+            className={`flex-1 text-center font-bold pb-2 ${
+              activeTab === "Upcoming"
+                ? "border-b-2 border-black text-black"
+                : "text-gray-500"
             }`}
             onClick={() => setActiveTab("Upcoming")}
           >
             Upcoming
           </button>
           <button
-            className={`font-bold ${
-              activeTab === "Completed" ? "border-b-2 border-black" : ""
+            className={`flex-1 text-center font-bold pb-2 ${
+              activeTab === "Completed"
+                ? "border-b-2 border-black text-black"
+                : "text-gray-500"
             }`}
             onClick={() => setActiveTab("Completed")}
           >
@@ -77,42 +68,32 @@ const SessionHistory = () => {
 
         <div>
           {activeTab === "Upcoming" && (
-            <div>
+            <div className="space-y-4">
               {upcomingSessions.map((session, index) => (
-                <div key={index} className="mb-4">
-                  <div
-                    className="bg-gray-50 p-4 rounded-lg shadow-sm cursor-pointer"
-                    onClick={() =>
-                      navigate("/session-details", { state: { session } })
-                    }
-                  >
-                    <p className="text-gray-500">{session.date}</p>
-                    <p className="text-lg font-bold">{session.trainer}</p>
-                    <p className="text-gray-500">{session.time}</p>
-                    <div className="bg-red-600 text-white text-sm px-2 py-1 mt-2 rounded-md">
-                      Session starts in {session.sessionIn}
-                    </div>
-                  </div>
-                </div>
+                <SessionItem
+                  key={index}
+                  date={session.date}
+                  time={session.time}
+                  trainer={session.trainer}
+                  sessionIn={session.sessionIn}
+                  isUpcoming={true}
+                  showFooter={index === 0} // Show footer only for the first item
+                />
               ))}
             </div>
           )}
 
           {activeTab === "Completed" && (
-            <div>
+            <div className="space-y-4">
               {completedSessions.map((session, index) => (
-                <div key={index} className="mb-4">
-                  <div
-                    className="bg-gray-50 p-4 rounded-lg shadow-sm cursor-pointer"
-                    onClick={() =>
-                      navigate("/session-details", { state: { session } })
-                    }
-                  >
-                    <p className="text-gray-500">{session.date}</p>
-                    <p className="text-lg font-bold">{session.trainer}</p>
-                    <p className="text-gray-500">{session.time}</p>
-                  </div>
-                </div>
+                <SessionItem
+                  key={index}
+                  date={session.date}
+                  time={session.time}
+                  trainer={session.trainer}
+                  isUpcoming={false} // Set to false for completed sessions
+                  showFooter={false} // No footer for completed sessions
+                />
               ))}
             </div>
           )}

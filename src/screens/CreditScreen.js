@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../components/Button";
+import BackIcon from "../components/BackIcon";
 
 const CreditsScreen = () => {
   const navigate = useNavigate();
@@ -41,22 +42,7 @@ const CreditsScreen = () => {
         }}
       >
         <div className="flex justify-between items-center mb-4">
-          <button onClick={() => navigate(-1)} className="text-gray-400">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              ></path>
-            </svg>
-          </button>
+          <BackIcon />
           <button className="bg-black text-white px-4 py-2 rounded-md flex items-center space-x-2">
             <span>Support</span>
           </button>

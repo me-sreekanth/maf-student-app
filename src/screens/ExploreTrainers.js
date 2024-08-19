@@ -1,70 +1,117 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import BackIcon from "../components/BackIcon";
+import Title from "../components/Title";
+import TrainerListItem from "../components/TrainerListItem";
 
 const ExploreTrainers = () => {
   const navigate = useNavigate();
 
   const topTrainers = [
     {
-      name: "Singdam Kiatmoo9",
+      name: "Takeru Segawa",
       rate: "3 / hour",
-      availableDays: [
+      totalSessions: 12,
+      sex: "Male",
+      age: "27",
+      experience: "Advanced",
+      schedule: [
         { day: "Tomorrow", time: "9AM - 10AM" },
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"),
     },
     {
       name: "Helena Padilla",
-      rate: "3 / hour",
-      availableDays: [
+      rate: "2 / hour",
+      totalSessions: 22,
+      sex: "Female",
+      age: "30",
+      experience: "Intermediate",
+      schedule: [
         { day: "Tomorrow", time: "9AM - 10AM" },
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"),
+    },
+    {
+      name: "Singdam Kiatmoo9",
+      rate: "2 / hour",
+      totalSessions: 18,
+      sex: "Male",
+      age: "35",
+      experience: "Professional",
+      schedule: [
+        { day: "Tomorrow", time: "9AM - 10AM" },
+        { day: "Thursday", time: "9AM - 10AM" },
+        { day: "Friday", time: "Busy" },
+      ],
+      imageUrl: require("../assets/trainer.png"),
     },
   ];
 
   const availableTrainers = [
     {
-      date: "AUG 12",
-      name: "Helena Padilla",
+      name: "Takeru Segawa",
       rate: "3 / hour",
-      gender: "27F",
+      totalSessions: 12,
+      sex: "Male",
+      age: "27",
+      experience: "Advanced",
+      schedule: [
+        { day: "Tomorrow", time: "9AM - 10AM" },
+        { day: "Thursday", time: "9AM - 10AM" },
+        { day: "Friday", time: "Busy" },
+      ],
+      imageUrl: require("../assets/trainer.png"),
     },
     {
-      date: "AUG 13",
-      name: "Takeru Segawa",
-      rate: "4 / hour",
-      gender: "27M",
+      name: "Helena Padilla",
+      rate: "2 / hour",
+      totalSessions: 22,
+      sex: "Female",
+      age: "30",
+      experience: "Intermediate",
+      schedule: [
+        { day: "Tomorrow", time: "9AM - 10AM" },
+        { day: "Thursday", time: "9AM - 10AM" },
+        { day: "Friday", time: "Busy" },
+      ],
+      imageUrl: require("../assets/trainer.png"),
     },
+    {
+      name: "Singdam Kiatmoo9",
+      rate: "2 / hour",
+      totalSessions: 18,
+      sex: "Male",
+      age: "35",
+      experience: "Professional",
+      schedule: [
+        { day: "Tomorrow", time: "9AM - 10AM" },
+        { day: "Thursday", time: "9AM - 10AM" },
+        { day: "Friday", time: "Busy" },
+      ],
+      imageUrl: require("../assets/trainer.png"),
+    },
+  ];
+
+  const days = [
+    { date: "AUG 12", day: "WED" },
+    { date: "AUG 13", day: "THU" },
+    { date: "AUG 14", day: "FRI" },
+    { date: "AUG 15", day: "SAT" },
+    { date: "AUG 16", day: "SUN" },
+    { date: "AUG 16", day: "SUN" },
+    { date: "AUG 16", day: "SUN" },
+    { date: "AUG 16", day: "SUN" },
   ];
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-4">
-        <button onClick={() => navigate(-1)} className="text-gray-500">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </button>
-        <div className="flex items-center">
-          <div className="flex items-center bg-gray-700 text-white px-3 py-1 rounded-md">
-            <span className="mr-2">100</span>
-            <button className="text-white text-lg">+</button>
-          </div>
-        </div>
+        <BackIcon />
       </header>
 
       <section className="mb-4">
@@ -85,60 +132,44 @@ const ExploreTrainers = () => {
       </section>
 
       <section className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2">// Top Trainers</h3>
+        <Title text={"// Top Trainers"} />
         <div className="flex overflow-x-scroll space-x-4">
           {topTrainers.map((trainer, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-60 bg-white p-4 rounded-lg shadow-md"
-            >
-              <img
-                src={require("../assets/trainer.png")}
-                alt={trainer.name}
-                className="w-full h-32 object-cover rounded-lg"
+            <div key={index} className="flex-shrink-0 w-60">
+              <TrainerListItem
+                trainer={trainer}
+                onClick={() => navigate(`/trainer-details/${index}`)}
               />
-              <h4 className="text-lg font-bold mt-2">{trainer.name}</h4>
-              <p className="text-gray-500">{trainer.rate}</p>
-              <div className="mt-2">
-                {trainer.availableDays.map((slot, i) => (
-                  <p key={i} className="text-gray-700">
-                    {slot.day}: {slot.time}
-                  </p>
-                ))}
-              </div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2">// Available Trainers</h3>
+        <Title text={"// Available Trainers"} />
+        <div className="flex overflow-x-scroll space-x-4 mb-4">
+          {days.map((day, index) => (
+            <div
+              key={index}
+              className={`p-4 text-center rounded-lg ${
+                index === 0
+                  ? "border-2 border-red-600"
+                  : "border border-gray-300"
+              }`}
+            >
+              <p className="text-gray-500">{day.date}</p>
+              <p className="text-lg font-bold">{day.day}</p>
+            </div>
+          ))}
+        </div>
+
         <div className="flex flex-wrap -mx-2">
           {availableTrainers.map((trainer, index) => (
             <div key={index} className="w-full sm:w-1/2 lg:w-1/3 px-2 mb-4">
-              <div className="bg-white p-4 rounded-lg shadow-md">
-                <p className="text-gray-500">{trainer.date}</p>
-                <img
-                  src={require("../assets/trainer.png")}
-                  alt={trainer.name}
-                  className="w-full h-32 object-cover rounded-lg"
-                />
-                <h4 className="text-lg font-bold mt-2">{trainer.name}</h4>
-                <p className="text-gray-500">
-                  {trainer.rate} • {trainer.gender}
-                </p>
-                <div className="mt-2 flex justify-between">
-                  <button className="text-sm bg-gray-200 px-3 py-1 rounded">
-                    9AM - 10AM
-                  </button>
-                  <button className="text-sm bg-gray-200 px-3 py-1 rounded">
-                    10AM - 11AM
-                  </button>
-                  <button className="text-sm bg-gray-200 px-3 py-1 rounded">
-                    11AM - 12PM
-                  </button>
-                </div>
-              </div>
+              <TrainerListItem
+                trainer={trainer}
+                onClick={() => navigate(`/trainer-details/${index}`)}
+              />
             </div>
           ))}
         </div>

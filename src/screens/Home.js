@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { PrimaryButton, SecondaryButton } from "../components/Button";
 import TrainerListItem from "../components/TrainerListItem";
 import SessionItem from "../components/SessionItem";
+import Title from "../components/Title";
+import CreditsBalance from "../components/CreditBalance";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -59,8 +61,8 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <header className="relative h-60 bg-gradient-to-b from-[#3A3A3A] to-[#252525] rounded-md mb-6 overflow-hidden">
+    <div className="min-h-screen bg-gray-100">
+      <header className="relative h-60 bg-gradient-to-b from-[#3A3A3A] to-[#252525] mb-6 overflow-hidden">
         <div className="flex justify-between items-center p-4 relative z-10">
           <div
             onClick={() => navigate("/profile")}
@@ -133,42 +135,12 @@ const Home = () => {
               <h2 className="text-lg font-bold">Ryuki</h2>
             </div>
           </div>
-          <div className="flex items-center bg-black rounded-md overflow-hidden">
-            <div className="flex items-center bg-black text-white px-2 py-1">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.17657 11.0585H1L11.3812 0H13.6188L10.7647 6.21159H14L3.6188 16H1.38121L4.17657 11.0585Z"
-                  fill="#FFD700"
-                />
-              </svg>
-              <span className="ml-2">100</span>
-            </div>
-            <button
-              onClick={() => navigate("/credits")}
-              className="bg-[#EB2726] text-white px-2 py-1 flex items-center justify-center"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6 0V12M0 6H12" stroke="white" strokeWidth="2" />
-              </svg>
-            </button>
-          </div>
+          <CreditsBalance balance={23} />
         </div>
         <div className="absolute bottom-0 left-0 p-4 z-20">
           <h2 className="text-3xl font-bold text-[#EB2726]">12</h2>
           <p className="text-lg font-bold text-white">SESSIONS</p>
-          <p className="text-gray-300">in last 30 days</p>
+          <p className="text-[#B0B0B0]">in last 30 days</p>
         </div>
         <div className="absolute top-0 right-0 opacity-50 pointer-events-none z-0">
           <svg
@@ -213,14 +185,9 @@ const Home = () => {
         </div>
       </header>
 
-      <section className="mb-4">
-        <h2 className="text-3xl font-bold text-red-600">12 Sessions</h2>
-        <p className="text-gray-500">in last 30 days</p>
-      </section>
-
-      <section className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2">// Upcoming Sessions</h3>
-        <div className="flex overflow-x-scroll space-x-4">
+      <section className="mb-4 p-6">
+        <Title text="// Upcoming Sessions" />
+        <div className="flex overflow-x-scroll space-x-4 mb-6">
           {upcomingSessions.map((session, index) => (
             <SessionItem
               key={index}
@@ -233,17 +200,16 @@ const Home = () => {
             />
           ))}
         </div>
+        <SecondaryButton
+          label="VIEW ALL"
+          onClick={() => navigate("/session-history")}
+        />
       </section>
 
-      <SecondaryButton
-        label="VIEW ALL"
-        onClick={() => navigate("/session-history")}
-      />
-
       {/* Explore Trainers Section */}
-      <section className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2">// Explore Trainers</h3>
-        <div className="flex overflow-x-scroll space-x-4">
+      <section className="mb-4 p-6">
+        <Title text="// Explore Trainers" />
+        <div className="flex overflow-x-scroll space-x-4 mb-6">
           {trainers.map((trainer, index) => (
             <div key={index} className="flex-shrink-0 w-60">
               <TrainerListItem
@@ -259,9 +225,9 @@ const Home = () => {
         />
       </section>
 
-      <section className="mb-4">
-        <h3 className="font-bold text-gray-800 mb-2">// Completed Sessions</h3>
-        <div className="flex overflow-x-scroll space-x-4 items-stretch">
+      <section className="mb-4 p-6">
+        <Title text="// Completed Sessions" />
+        <div className="flex overflow-x-scroll space-x-4 items-stretch mb-6">
           {completedSessions.map((session, index) => (
             <SessionItem
               key={index}
@@ -273,20 +239,17 @@ const Home = () => {
             />
           ))}
         </div>
+        <SecondaryButton
+          label="VIEW ALL"
+          onClick={() => navigate("/session-history")}
+        />
       </section>
-      <SecondaryButton
-        label="VIEW ALL"
-        onClick={() => navigate("/completed-sessions")}
-      />
 
       <footer className="mt-6">
         <p className="text-gray-400 font-bold text-center">
           Good Teachers Matter
         </p>
-        <SecondaryButton
-          label="Talk with us"
-          onClick={() => navigate("/contact")}
-        />
+        <p>Talk with us</p>
       </footer>
     </div>
   );

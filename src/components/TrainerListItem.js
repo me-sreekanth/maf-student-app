@@ -18,9 +18,9 @@ const TrainerListItem = ({ trainer }) => {
       >
         <div className="flex-1">
           <h4 className="text-xl font-bold text-white">
-            {trainer.name.split(" ")[0]}
+            {trainer?.name?.split(" ")[0]}
             <br />
-            {trainer.name.split(" ")[1]}
+            {trainer?.name?.split(" ")[1]}
           </h4>
           <div className="text-yellow-400 flex items-center">
             <svg
@@ -37,13 +37,13 @@ const TrainerListItem = ({ trainer }) => {
                 d="M5 12h14M12 5l7 7-7 7"
               ></path>
             </svg>
-            <span className="text-white text-lg">{trainer.rate}</span>
-            <span className="ml-2 text-white">{trainer.age}F</span>
+            <span className="text-white text-lg">{trainer?.rate}</span>
+            <span className="ml-2 text-white">{trainer?.age}F</span>
           </div>
         </div>
         <img
-          src={trainer.imageUrl}
-          alt={trainer.name}
+          src={trainer?.imageUrl}
+          alt={trainer?.name}
           className="h-full object-cover"
           style={{
             height: "200px",
@@ -54,15 +54,15 @@ const TrainerListItem = ({ trainer }) => {
           }}
         />
       </div>
-      <div className="cursor-pointer overflow-hidden p-4 border-1 border-[#DEDEDE] shadow-md ">
-        {trainer.schedule.map((slot, i) => (
+      <div className="cursor-pointer overflow-hidden p-4 border-1 border-[#DEDEDE] shadow-md">
+        {trainer?.schedule?.map((slot, i) => (
           <div key={i} className="flex justify-between text-gray-700">
             <span>{slot.day}</span>
             <span className={slot.time === "Busy" ? "text-red-600" : ""}>
               {slot.time}
             </span>
           </div>
-        ))}
+        )) || <div>No schedule available</div>}
       </div>
     </div>
   );

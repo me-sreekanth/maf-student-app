@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import trainerImage from "../assets/trainer.png"; // Replace with the correct path to your image
+import BackIcon from "../components/BackIcon";
 
 const TrainerDetails = ({ location }) => {
   const [tab, setTab] = useState("availability");
@@ -61,28 +62,7 @@ const TrainerDetails = ({ location }) => {
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-4">
-        <button onClick={() => navigate(-1)} className="text-gray-500">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </button>
-        <div className="flex items-center">
-          <div className="flex items-center bg-gray-700 text-white px-3 py-1 rounded-md">
-            <span className="mr-2">100</span>
-            <button className="text-white text-lg">+</button>
-          </div>
-        </div>
+        <BackIcon />
       </header>
 
       <section className="flex flex-col items-center mb-4">

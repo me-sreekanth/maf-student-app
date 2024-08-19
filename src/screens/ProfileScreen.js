@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton, SecondaryButton } from "../components/Button";
+import BackIcon from "../components/BackIcon";
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -14,22 +15,7 @@ const ProfileScreen = () => {
         }}
       >
         <div className="flex justify-between items-center mb-4">
-          <button onClick={() => navigate(-1)} className="text-gray-400">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              ></path>
-            </svg>
-          </button>
+          <BackIcon />
         </div>
         <div className="flex flex-col items-center mb-6">
           <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center">
