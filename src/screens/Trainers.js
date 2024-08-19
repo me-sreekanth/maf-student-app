@@ -1,10 +1,21 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import TrainerListItem from "../components/TrainerListItem"; // Import the TrainerListItem component
 
 const Trainers = () => {
   const navigate = useNavigate();
-  const [view, setView] = useState("myTrainers"); // Toggle between "myTrainers" and "allTrainers"
+  const location = useLocation();
+  const [view, setView] = useState("myTrainers"); // Default to "myTrainers"
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const viewParam = queryParams.get("view");
+
+    if (viewParam) {
+      setView(viewParam);
+    }
+  }, [location.search]); // Depend on location.search to re-run if it changes
 
   const myTrainers = [
     {
@@ -19,6 +30,7 @@ const Trainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"),
     },
     {
       name: "Helena Padilla",
@@ -32,6 +44,7 @@ const Trainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"),
     },
     {
       name: "Singdam Kiatmoo9",
@@ -45,6 +58,7 @@ const Trainers = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"),
     },
   ];
 
@@ -52,9 +66,7 @@ const Trainers = () => {
     trainer.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleTrainerClick = (trainer) => {
-    navigate("/trainer-details", { state: { trainer } });
-  };
+  const displayedTrainers = view === "myTrainers" ? myTrainers : allTrainers;
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
@@ -83,26 +95,10 @@ const Trainers = () => {
         </div>
       </header>
 
-      <section className="mb-4">
-        <div className="flex justify-between">
-          <button
-            onClick={() => setView("myTrainers")}
-            className={`flex-1 border-2 ${
-              view === "myTrainers" ? "border-red-500" : "border-gray-300"
-            } p-4 rounded-md text-center`}
-          >
-            My Trainers
-          </button>
-          <button
-            onClick={() => setView("allTrainers")}
-            className={`flex-1 border-2 ${
-              view === "allTrainers" ? "border-red-500" : "border-gray-300"
-            } p-4 rounded-md text-center ml-4`}
-          >
-            All Trainers
-          </button>
-        </div>
-      </section>
+      <h3 className="font-bold text-gray-800 mb-4 text-black">
+        {/* Ensure the text is visible */}
+        // {view === "myTrainers" ? "MY TRAINERS" : "ALL TRAINERS"}
+      </h3>
 
       {view === "allTrainers" && (
         <section className="mb-4">
@@ -111,36 +107,16 @@ const Trainers = () => {
             placeholder="Search Trainer"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-3 border rounded-md"
+            className="w-full p-3 border rounded-md text-black bg-white"
+            // Ensure visibility by setting text color and background
           />
         </section>
       )}
 
       <section className="flex flex-col space-y-4">
-        {(view === "myTrainers" ? myTrainers : allTrainers).map(
-          (trainer, index) => (
-            <div
-              key={index}
-              className="bg-white p-4 rounded-lg shadow-md flex flex-col space-y-2 cursor-pointer"
-              onClick={() => handleTrainerClick(trainer)}
-            >
-              <div className="flex justify-between items-center">
-                <h4 className="text-lg font-bold">{trainer.name}</h4>
-                <span className="text-sm text-gray-500">{trainer.rate}</span>
-              </div>
-              <p className="text-gray-500">{trainer.experience}</p>
-              <p className="text-gray-500">{trainer.sex}</p>
-              <p className="text-gray-500">{trainer.age} years</p>
-              <div className="mt-2">
-                {trainer.schedule.map((slot, i) => (
-                  <p key={i} className="text-gray-700">
-                    {slot.day}: {slot.time}
-                  </p>
-                ))}
-              </div>
-            </div>
-          )
-        )}
+        {displayedTrainers.map((trainer, index) => (
+          <TrainerListItem key={index} trainer={trainer} />
+        ))}
       </section>
     </div>
   );

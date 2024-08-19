@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton, SecondaryButton } from "../components/Button";
+import TrainerListItem from "../components/TrainerListItem";
+import SessionItem from "../components/SessionItem";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ const Home = () => {
         { day: "Thursday", time: "9AM - 10AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"), // Ensure image path is correct
     },
     {
       name: "Takeru Segawa",
@@ -38,6 +41,7 @@ const Home = () => {
         { day: "Thursday", time: "10AM - 11AM" },
         { day: "Friday", time: "Busy" },
       ],
+      imageUrl: require("../assets/trainer.png"), // Ensure image path is correct
     },
   ];
 
@@ -218,45 +222,34 @@ const Home = () => {
         <h3 className="font-bold text-gray-800 mb-2">// Upcoming Sessions</h3>
         <div className="flex overflow-x-scroll space-x-4">
           {upcomingSessions.map((session, index) => (
-            <div
+            <SessionItem
               key={index}
-              className="flex-shrink-0 w-60 bg-white p-4 rounded-lg shadow-md"
-            >
-              <p className="text-gray-500">{session.date}</p>
-              <p className="text-lg font-bold">{session.trainer}</p>
-              <p className="text-gray-500">{session.time}</p>
-              <p className="text-red-600 mt-2">{session.sessionIn}</p>
-            </div>
+              date={session.date}
+              time={session.time}
+              trainer={session.trainer}
+              sessionIn={session.sessionIn}
+              isUpcoming={true}
+              showFooter={index === 0} // Show footer only on the first item
+            />
           ))}
         </div>
-        <SecondaryButton
-          label="VIEW ALL"
-          onClick={() => navigate("/session-history")}
-        />
       </section>
 
+      <SecondaryButton
+        label="VIEW ALL"
+        onClick={() => navigate("/session-history")}
+      />
+
+      {/* Explore Trainers Section */}
       <section className="mb-4">
         <h3 className="font-bold text-gray-800 mb-2">// Explore Trainers</h3>
         <div className="flex overflow-x-scroll space-x-4">
           {trainers.map((trainer, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-60 bg-white p-4 rounded-lg shadow-md"
-            >
-              <img
-                src="/path/to/trainer-pic.png"
-                alt={trainer.name}
-                className="w-full h-32 object-cover rounded-lg"
+            <div key={index} className="flex-shrink-0 w-60">
+              <TrainerListItem
+                trainer={trainer}
+                onClick={() => navigate(`/trainer-details/${index}`)}
               />
-              <h4 className="text-lg font-bold mt-2">{trainer.name}</h4>
-              <p className="text-gray-500">{trainer.rate}</p>
-              <div className="mt-2">
-                {trainer.schedule.map((slot, i) => (
-                  <p key={i} className="text-gray-700">
-                    {slot.day}: {slot.time}
-                  </p>
-                ))}
-              </div>
             </div>
           ))}
         </div>
@@ -268,23 +261,23 @@ const Home = () => {
 
       <section className="mb-4">
         <h3 className="font-bold text-gray-800 mb-2">// Completed Sessions</h3>
-        <div className="flex overflow-x-scroll space-x-4">
+        <div className="flex overflow-x-scroll space-x-4 items-stretch">
           {completedSessions.map((session, index) => (
-            <div
+            <SessionItem
               key={index}
-              className="flex-shrink-0 w-60 bg-white p-4 rounded-lg shadow-md"
-            >
-              <p className="text-gray-500">{session.date}</p>
-              <p className="text-lg font-bold">{session.trainer}</p>
-              <p className="text-gray-500">{session.time}</p>
-            </div>
+              date={session.date}
+              time={session.time}
+              trainer={session.trainer}
+              isUpcoming={false} // Set to false for completed sessions
+              showFooter={false} // No footer for completed sessions
+            />
           ))}
         </div>
-        <SecondaryButton
-          label="VIEW ALL"
-          onClick={() => navigate("/completed-sessions")}
-        />
       </section>
+      <SecondaryButton
+        label="VIEW ALL"
+        onClick={() => navigate("/completed-sessions")}
+      />
 
       <footer className="mt-6">
         <p className="text-gray-400 font-bold text-center">
