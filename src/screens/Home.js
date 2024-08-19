@@ -96,7 +96,10 @@ const Home = () => {
             </div>
           ))}
         </div>
-        <button className="mt-2 text-red-600 flex items-center">
+        <button
+          className="mt-2 text-red-600 flex items-center"
+          onClick={() => navigate("/session-history")}
+        >
           View All
           <svg
             className="w-5 h-5 ml-1"
@@ -140,7 +143,10 @@ const Home = () => {
             </div>
           ))}
         </div>
-        <button className="mt-2 text-red-600 flex items-center">
+        <button
+          className="mt-2 text-red-600 flex items-center"
+          onClick={() => navigate("/explore-trainers")}
+        >
           Explore All
           <svg
             className="w-5 h-5 ml-1"

@@ -10,6 +10,11 @@ import BasicDetails1 from "./screens/BasicDetails1"; // Updated import
 import BasicDetails2 from "./screens/BasicDetails2"; // Updated import
 import OtpVerification from "./screens/OtpVerification"; // Updated import
 import Login from "./screens/Login"; // Updated import
+import SessionHistory from "./screens/SessionHistory";
+import SessionDetails from "./screens/SessionDetails";
+import ExploreTrainers from "./screens/ExploreTrainers";
+import Trainers from "./screens/Trainers";
+import TrainerDetails from "./screens/TrainerDetails";
 
 function App() {
   // const action = useNavigationType();
@@ -72,6 +77,11 @@ function App() {
       <Route path="/basic-details1" element={<BasicDetails1 />} />
       <Route path="/basic-details2" element={<BasicDetails2 />} />
       <Route path="/otp-verification" element={<OtpVerification />} />
+      <Route path="/session-history" element={<SessionHistory />} />
+      <Route path="/session-details" element={<SessionDetails />} />
+      <Route path="/explore-trainers" element={<ExploreTrainers />} />
+      <Route path="/trainers" element={<Trainers />} />
+      <Route path="/trainer-details" element={<TrainerDetails />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );
