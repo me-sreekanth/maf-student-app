@@ -1,6 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { sendOtp } from "../services/api";
+import LoginAnimatedHeader from "../components/LoginAnimatedHeader";
+import PhoneNumber from "../components/PhoneNumber";
+import Checkbox from "../components/Checkbox";
+import { PrimaryButton } from "../components/Button";
+import SpannedText from "../components/SpannedText";
+import styled from "styled-components";
+
+const HeaderText = styled.h1`
+  font-family: "Manrope", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  margin-top: 40px;
+`;
 
 const Login = () => {
   const [countryCode, setCountryCode] = useState("91");
@@ -33,59 +51,36 @@ const Login = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    setMobileNumber(e.target.value);
+    if (error) {
+      setError(""); // Clear error when user starts typing
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900">
-      <div className="w-full max-w-sm bg-white rounded-lg shadow-lg p-6">
-        <div className="mb-6 text-center">
-          <h1 className="text-3xl font-extrabold uppercase tracking-tight">
-            Train <span className="text-red-600">Anywhere</span> with{" "}
-            <span className="text-red-600">Pros</span>
-          </h1>
-          <p className="text-gray-600 text-sm mt-2">
-            Get trained at your place now
-          </p>
-        </div>
-        <div className="mb-4">
-          <div className="flex">
-            <input
-              type="text"
-              value={countryCode}
-              onChange={(e) => setCountryCode(e.target.value)}
-              className="w-16 p-2 border border-gray-300 rounded-l-md"
-              placeholder="Code"
-            />
-            <input
-              type="text"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-              className="flex-1 p-2 border border-gray-300 rounded-r-md"
-              placeholder="Phone Number"
-            />
-          </div>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        </div>
-        <button
-          onClick={handleSendOtp}
-          disabled={loading}
-          className="w-full bg-red-600 text-white font-bold py-2 px-4 rounded-md flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-        >
-          {loading ? "Sending..." : "Login"}
-          <svg
-            className="w-5 h-5 ml-2 -mr-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            ></path>
-          </svg>
-        </button>
+    <div className="min-h-screen flex flex-col items-center justify-start bg-gray-900">
+      <LoginAnimatedHeader />
+
+      <HeaderText>Get trained at your place now</HeaderText>
+
+      <div className="mb-8">
+        <PhoneNumber
+          onChange={handleInputChange}
+          onFocus={() => setError("")} // Clear error when input is focused
+          countryCode={`+${countryCode}`}
+        />
+
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <Checkbox />
       </div>
+
+      <PrimaryButton
+        label={loading ? "SENDING..." : "LOGIN"}
+        onClick={handleSendOtp}
+      />
+
+      <SpannedText />
     </div>
   );
 };

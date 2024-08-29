@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../services/api";
+import { PrimaryButton } from "../components/Button";
+import BackIcon from "../components/BackIcon";
+import { SingleInput, TextInput } from "../components/InputComponents";
 
 const BasicDetails1 = () => {
   // Replace this with the actual API response
@@ -49,39 +52,30 @@ const BasicDetails1 = () => {
   }, [name, age, sex, experience, navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-6">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <button
-          onClick={() => navigate(-1)}
-          className="text-gray-500 focus:outline-none mb-4"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </button>
-
+    <div className="min-h-screen flex flex-col justify-start items-center bg-gray-100 p-6">
+      <header className="flex justify-start items-start mb-4 w-full p-4">
+        <BackIcon />
+      </header>
+      <div className="w-full max-w-md bg-white">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
           Let us know about you
         </h1>
 
-        <div className="mb-4">
+        <TextInput
+          id="name"
+          label="What should trainers call you?"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        {/* <div className="mb-4">
           <label
             htmlFor="name"
             className="block text-sm font-medium text-gray-700"
           >
             What should trainers call you?
           </label>
+
           <input
             type="text"
             name="name"
@@ -91,9 +85,16 @@ const BasicDetails1 = () => {
             onChange={(e) => setName(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
           />
-        </div>
+        </div> */}
 
-        <div className="mb-4">
+        <SingleInput
+          label="YOUR MAUY THAI EXPERIENCE"
+          options={["Beginner", "Intermediate", "Professional"]}
+          selected={experience}
+          onSelect={(level) => setExperience(level)}
+        />
+
+        {/* <div className="mb-4">
           <p className="block text-sm font-medium text-gray-700">
             Your Muay Thai Experience
           </p>
@@ -112,9 +113,23 @@ const BasicDetails1 = () => {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <div className="mb-4">
+        <TextInput
+          label="HOW OLD ARE YOU?"
+          placeholder="Enter your age"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+        />
+
+        <SingleInput
+          label="Division (Sex)"
+          options={["Male", "Female"]}
+          selected={sex}
+          onSelect={(g) => setSex(g)}
+        />
+
+        {/* <div className="mb-4">
           <label
             htmlFor="age"
             className="block text-sm font-medium text-gray-700"
@@ -130,9 +145,9 @@ const BasicDetails1 = () => {
             onChange={(e) => setAge(e.target.value)}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
           />
-        </div>
+        </div> */}
 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <p className="block text-sm font-medium text-gray-700">
             Division (Sex)
           </p>
@@ -151,11 +166,16 @@ const BasicDetails1 = () => {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {error && <div className="text-red-500 mb-4">{error}</div>}
 
-        <button
+        <PrimaryButton
+          onClick={handleNext}
+          label={loading ? "UPDATING..." : "NEXT"}
+          disabled={loading}
+        />
+        {/* <button
           onClick={handleNext}
           className="w-full bg-red-600 text-white font-bold py-2 px-4 rounded-md flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           disabled={loading}
@@ -175,7 +195,7 @@ const BasicDetails1 = () => {
               d="M17 8l4 4m0 0l-4 4m4-4H3"
             ></path>
           </svg>
-        </button>
+        </button> */}
       </div>
     </div>
   );

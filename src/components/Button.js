@@ -1,9 +1,10 @@
 import React from "react";
 
-export const PrimaryButton = ({ label, onClick }) => {
+export const PrimaryButton = ({ label, onClick, disabled = false }) => {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className="flex justify-between items-center px-6 py-[19px] w-[320px] h-[52px] border-0 bg-[#EB2726] text-white font-bold"
     >
       <span className="font-manrope font-extrabold text-[14px] leading-[20px] tracking-[0.02em] text-left">

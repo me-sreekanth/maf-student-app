@@ -1,27 +1,63 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 import BackIcon from "../components/BackIcon";
 import { PrimaryButton } from "../components/Button";
 import { SingleInput } from "../components/InputComponents";
-import BottomSheet from "../components/BottomSheet"; // Import the BottomSheet component
+
+const stripePromise = loadStripe(
+  "pk_test_51PpktVDR2pvMyQSx1nuDphfPYavVb5gH06T3bHMjQdwCUECtN2f6TSXjknsR9wZBrBn3GV4XzHOhSZDebg0dbAfO00mSx8xUcg"
+); // Your Stripe publishable key
 
 const BuyCredits = () => {
   const navigate = useNavigate();
   const [credits, setCredits] = useState(10);
-  const [showBottomSheet, setShowBottomSheet] = useState(false); // State for showing the bottom sheet
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const creditCost = 30; // Assume each credit costs $30
-  const totalCost = credits * creditCost;
+  const totalCost = credits * creditCost * 100; // Stripe works with the smallest currency unit (e.g., cents)
 
-  const handlePay = () => {
-    // Show bottom sheet on PAY click
-    setShowBottomSheet(true);
-  };
+  const handlePay = async () => {
+    setIsProcessing(true);
 
-  const handleCloseBottomSheet = () => {
-    setShowBottomSheet(false);
-    // Navigate to the appropriate screen after closing the sheet
-    navigate("/explore-trainers");
+    try {
+      // Create a Checkout Session on the server
+      const response = await fetch(
+        "http://localhost:3002/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: totalCost }),
+        }
+      );
+
+      const { id } = await response.json();
+
+      // Load the Stripe object
+      const stripe = await stripePromise;
+
+      if (!stripe) {
+        console.error("Stripe.js failed to load.");
+        return;
+      }
+
+      // Redirect to Stripe Checkout
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: id,
+      });
+
+      if (error) {
+        console.error(error);
+        alert("Payment failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -108,15 +144,15 @@ const BuyCredits = () => {
 
         <div className="flex justify-between items-center mb-4">
           <p className="text-gray-600">Total cost</p>
-          <p className="text-xl font-bold">${totalCost}</p>
+          <p className="text-xl font-bold">${totalCost / 100}</p>
         </div>
 
-        <PrimaryButton label={"PAY"} onClick={handlePay} />
+        <PrimaryButton
+          label={isProcessing ? "Processing..." : "PAY"}
+          onClick={handlePay}
+          disabled={isProcessing || !stripePromise}
+        />
       </section>
-
-      {showBottomSheet && (
-        <BottomSheet credits={credits} onClose={handleCloseBottomSheet} />
-      )}
     </div>
   );
 };

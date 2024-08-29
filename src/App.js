@@ -25,6 +25,14 @@ import ProfileScreen from "./screens/ProfileScreen";
 import EditProfileScreen from "./screens/EditProfile";
 import SavedAddressesScreen from "./screens/SavedAddress";
 import "./index.css";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Success from "./screens/Success";
+import Failure from "./screens/Failure";
+
+const stripePromise = loadStripe(
+  "pk_live_51PpktVDR2pvMyQSxRdkf40Llbz6F3crrn6YulljLEzLeMeE0cns4BFWSqCPlLQ73vzypSfTvse4f1PVp0L4e3Rgy00vpPhb5pX"
+);
 
 function App() {
   // const action = useNavigationType();
@@ -82,29 +90,33 @@ function App() {
   }, [pathname]);
 
   return (
-    <div className="app-container">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/basic-details1" element={<BasicDetails1 />} />
-        <Route path="/basic-details2" element={<BasicDetails2 />} />
-        <Route path="/otp-verification" element={<OtpVerification />} />
-        <Route path="/session-history" element={<SessionHistory />} />
-        <Route path="/session-details" element={<SessionDetails />} />
-        <Route path="/explore-trainers" element={<ExploreTrainers />} />
-        <Route path="/trainers" element={<Trainers />} />
-        <Route path="/trainer-details" element={<TrainerDetails />} />
-        <Route path="/select-address" element={<SelectAddress />} />
-        <Route path="/session-duration" element={<SessionDuration />} />
-        <Route path="/buy-credits" element={<BuyCredits />} />
-        <Route path="/set-location" element={<SetLocation />} />
-        <Route path="/add-address" element={<AddAddress />} />
-        <Route path="/credits" element={<CreditsScreen />} />
-        <Route path="/profile" element={<ProfileScreen />} />
-        <Route path="/edit-profile" element={<EditProfileScreen />} />
-        <Route path="/saved-addresses" element={<SavedAddressesScreen />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </div>
+    <Elements stripe={stripePromise}>
+      <div className="app-container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/basic-details1" element={<BasicDetails1 />} />
+          <Route path="/basic-details2" element={<BasicDetails2 />} />
+          <Route path="/otp-verification" element={<OtpVerification />} />
+          <Route path="/session-history" element={<SessionHistory />} />
+          <Route path="/session-details" element={<SessionDetails />} />
+          <Route path="/explore-trainers" element={<ExploreTrainers />} />
+          <Route path="/trainers" element={<Trainers />} />
+          <Route path="/trainer-details" element={<TrainerDetails />} />
+          <Route path="/select-address" element={<SelectAddress />} />
+          <Route path="/session-duration" element={<SessionDuration />} />
+          <Route path="/buy-credits" element={<BuyCredits />} />
+          <Route path="/set-location" element={<SetLocation />} />
+          <Route path="/add-address" element={<AddAddress />} />
+          <Route path="/credits" element={<CreditsScreen />} />
+          <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/edit-profile" element={<EditProfileScreen />} />
+          <Route path="/saved-addresses" element={<SavedAddressesScreen />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/failure" element={<Failure />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
+    </Elements>
   );
 }
 

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackIcon from "../components/BackIcon";
 import Title from "../components/Title";
 import TrainerListItem from "../components/TrainerListItem";
 import TrainerSelection from "../components/TrainerSelection";
+import DaySelector from "../components/DaySelector";
 
 const ExploreTrainers = () => {
   const navigate = useNavigate();
@@ -104,15 +105,16 @@ const ExploreTrainers = () => {
     },
   ];
 
+  const [selectedDay, setSelectedDay] = useState(0); // State to track selected day
+
   const days = [
     { date: "AUG 12", day: "WED" },
     { date: "AUG 13", day: "THU" },
     { date: "AUG 14", day: "FRI" },
     { date: "AUG 15", day: "SAT" },
     { date: "AUG 16", day: "SUN" },
-    { date: "AUG 16", day: "SUN" },
-    { date: "AUG 16", day: "SUN" },
-    { date: "AUG 16", day: "SUN" },
+    { date: "AUG 17", day: "MON" },
+    { date: "AUG 18", day: "TUE" },
   ];
 
   return (
@@ -139,21 +141,13 @@ const ExploreTrainers = () => {
 
       <section className="mb-4">
         <Title text={"// Available Trainers"} />
-        <div className="flex overflow-x-scroll space-x-4 mb-4">
-          {days.map((day, index) => (
-            <div
-              key={index}
-              className={`p-4 text-center rounded-lg ${
-                index === 0
-                  ? "border-2 border-red-600"
-                  : "border border-gray-300"
-              }`}
-            >
-              <p className="text-gray-500">{day.date}</p>
-              <p className="text-lg font-bold">{day.day}</p>
-            </div>
-          ))}
-        </div>
+
+        {/* Use the DaySelector component */}
+        <DaySelector
+          days={days}
+          selectedDay={selectedDay}
+          setSelectedDay={setSelectedDay}
+        />
 
         <div className="flex flex-wrap -mx-2">
           {availableTrainers.map((trainer, index) => (

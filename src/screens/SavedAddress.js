@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../components/Button"; // Assuming you have this button component
+import BackIcon from "../components/BackIcon";
 
 const SavedAddressesScreen = () => {
   const navigate = useNavigate();
@@ -22,22 +23,7 @@ const SavedAddressesScreen = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-4">
-        <button onClick={() => navigate(-1)} className="text-gray-500">
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </button>
+        <BackIcon />
       </header>
 
       <section>
